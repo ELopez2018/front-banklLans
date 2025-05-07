@@ -1,1 +1,65 @@
-<p>dashboard works!</p>
+<div class="min-h-screen bg-neutral-gray flex items-center justify-center">
+  <!-- Contenedor Principal -->
+  <div class="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full">
+    <!-- Título de la página -->
+    <h1 class="text-3xl font-semibold text-dark-blue mb-6 text-center">Solicitudes de Préstamo</h1>
+
+    <!-- Formulario de Solicitud de Préstamo -->
+    <form [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="space-y-6 mb-8">
+      <h2 class="text-xl text-dark-blue mb-4">Enviar Nueva Solicitud de Préstamo</h2>
+
+      <!-- Nombre -->
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Nombre Completo</label>
+        <input id="name" type="text" formControlName="name" placeholder="Ingresa tu nombre completo" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-light-blue" />
+        <div *ngIf="loanForm.get('name')?.invalid && loanForm.get('name')?.touched" class="text-red-500 text-sm mt-2">
+          Nombre es obligatorio.
+        </div>
+      </div>
+
+      <!-- Monto -->
+      <div>
+        <label for="amount" class="block text-sm font-medium text-gray-700">Monto del Préstamo</label>
+        <input id="amount" type="number" formControlName="amount" placeholder="Monto solicitado" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-light-blue" />
+        <div *ngIf="loanForm.get('amount')?.invalid && loanForm.get('amount')?.touched" class="text-red-500 text-sm mt-2">
+          El monto debe ser un número mayor a 0.
+        </div>
+      </div>
+
+      <!-- Duración -->
+      <div>
+        <label for="duration" class="block text-sm font-medium text-gray-700">Duración (meses)</label>
+        <input id="duration" type="number" formControlName="duration" placeholder="Duración del préstamo" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-light-blue" />
+        <div *ngIf="loanForm.get('duration')?.invalid && loanForm.get('duration')?.touched" class="text-red-500 text-sm mt-2">
+          La duración debe ser un número mayor a 0.
+        </div>
+      </div>
+
+      <!-- Botón Enviar -->
+      <button type="submit" [disabled]="loanForm.invalid" class="w-auto px-6 py-2 bg-black text-white rounded-lg hover:bg-light-blue transition duration-300 mx-auto block hover:cursor-pointer">
+        Enviar Solicitud
+      </button>
+    </form>
+
+    <!-- Consulta de Estado de Préstamo -->
+    <div *ngIf="loanRequests.length > 0">
+      <h2 class="text-xl text-dark-blue mb-4">Estado de tus Solicitudes</h2>
+      <div *ngFor="let loan of loanRequests" class="p-4 bg-gray-100 rounded-lg mb-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h3 class="font-semibold">{{ loan.name }}</h3>
+            <p>Monto solicitado: {{ loan.amount }} USD</p>
+            <p>Duración: {{ loan.duration }} meses</p>
+          </div>
+          <div class="text-sm text-gray-600">
+            <p>Estado: <span class="font-semibold text-light-blue">{{ loan.status }}</span></p>
+          </div>
+        </div>
+        <div *ngIf="isAdmin">
+          <button (click)="changeLoanStatus(loan, 'Aprobado')" class="bg-green-500 text-white py-1 px-3 rounded-lg hover:bg-green-400">Aprobar</button>
+          <button (click)="changeLoanStatus(loan, 'Rechazado')" class="bg-red-500 text-white py-1 px-3 rounded-lg hover:bg-red-400">Rechazar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

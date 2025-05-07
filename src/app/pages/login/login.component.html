@@ -3,19 +3,19 @@
     <h2 class="text-2xl md:text-3xl font-bold text-center">Iniciar Sesión</h2>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
-      <!-- Email -->
+      <!-- username -->
       <div>
-        <label for="email" class="block text-sm font-medium">Correo electrónico</label>
+        <label for="username" class="block text-sm font-medium">Correo electrónico</label>
         <input
-          type="email"
-          id="email"
-          formControlName="email"
+          type="username"
+          id="username"
+          formControlName="username"
           class="mt-1 w-full px-4 py-2 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          [ngClass]="{ 'border-red-400': submitted && f['email'].errors }"
+          [ngClass]="{ 'border-red-400': submitted && f['username'].errors }"
         />
-        <div *ngIf="submitted && f['email'].errors" class="text-red-300 text-sm mt-1">
-          <span *ngIf="f['email'].errors['required']">El correo es obligatorio.</span>
-          <span *ngIf="f['email'].errors['email']">Correo inválido.</span>
+        <div *ngIf="submitted && f['username'].errors" class="text-red-300 text-sm mt-1">
+          <span *ngIf="f['username'].errors['required']">El correo es obligatorio.</span>
+          <span *ngIf="f['username'].errors['username']">Correo inválido.</span>
         </div>
       </div>
 
