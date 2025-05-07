@@ -1,0 +1,51 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 px-4">
+  <div class="w-full max-w-md bg-white/10 backdrop-blur-md rounded-lg shadow-lg p-8 space-y-6 text-white">
+    <h2 class="text-2xl md:text-3xl font-bold text-center">Iniciar Sesión</h2>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <!-- Email -->
+      <div>
+        <label for="email" class="block text-sm font-medium">Correo electrónico</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="mt-1 w-full px-4 py-2 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{ 'border-red-400': submitted && f['email'].errors }"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="text-red-300 text-sm mt-1">
+          <span *ngIf="f['email'].errors['required']">El correo es obligatorio.</span>
+          <span *ngIf="f['email'].errors['email']">Correo inválido.</span>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label for="password" class="block text-sm font-medium">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="mt-1 w-full px-4 py-2 bg-white/20 border border-white/30 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          [ngClass]="{ 'border-red-400': submitted && f['password'].errors }"
+        />
+        <div *ngIf="submitted && f['password'].errors" class="text-red-300 text-sm mt-1">
+          <span *ngIf="f['password'].errors['required']">La contraseña es obligatoria.</span>
+          <span *ngIf="f['password'].errors['minlength']">Mínimo 6 caracteres.</span>
+        </div>
+      </div>
+
+      <!-- Submit -->
+      <button
+        type="submit"
+        class="w-full py-2 mt-4 bg-blue-600 hover:bg-blue-700 rounded-md font-semibold transition duration-300"
+      >
+        Ingresar
+      </button>
+    </form>
+
+    <p class="text-sm text-center text-white/80">
+      ¿No tienes cuenta? <a href="#" class="text-blue-300 hover:underline">Regístrate</a>
+    </p>
+  </div>
+</div>
